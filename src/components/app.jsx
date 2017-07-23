@@ -14,6 +14,7 @@ export default class App extends Component {
 
  componentWillMount() {
    console.log('component ready');
+   axios.get("https://opentdb.com/api.php?amount=10&type=multiple").then(response => console.log(response))
  }
   render() {
     return (
