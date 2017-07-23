@@ -5,18 +5,31 @@ import Main from './main';
 import axios from 'axios';
 
 
-
 export default class App extends Component {
  constructor(props) {
    super(props);
-   this.state = {};
+   this.state = {
+     results: '',
+     actualQuestion: ''
+   };
  }
 
  componentWillMount() {
    console.log('component ready');
-   axios.get("https://opentdb.com/api.php?amount=10&type=multiple").then(response => console.log(response))
+   axios.get("https://opentdb.com/api.php?amount=10&type=multiple").then(({data}) => {
+    var { results } = data;
+    this.setState({ results });
+   });
  }
+
   render() {
+    const { results } = this.state;
+    console.log('app: ', results)
+    if(!results) {
+      return(<div>wait</div>)
+    }
+    
+
     return (
       <MuiThemeProvider>
         <div>
@@ -24,7 +37,7 @@ export default class App extends Component {
               title="Random Quiz Game"
               iconClassNameRight="muidocs-icon-navigation-expand-more"
             />
-            <Main />
+            <Main data={results[0]}/>
         </div>
       </MuiThemeProvider>
     );
