@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import QuizReducer from './quiz_reducer';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  quiz: QuizReducer
 });
 
 export default rootReducer;
